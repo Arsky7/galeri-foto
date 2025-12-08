@@ -11,37 +11,40 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // Buat 3 user dummy
-        $user1 = DB::table('users')->insertGetId([
+        $user1 = (int) DB::table('users')->insertGetId([
             'Username' => 'johndoe',
             'Email' => 'john@example.com',
             'Password' => Hash::make('password'),
             'NamaLengkap' => 'John Doe',
             'Alamat' => 'Jakarta, Indonesia',
+            'Role' => 'user',
             'created_at' => now(),
             'updated_at' => now(),
         ]);
 
-        $user2 = DB::table('users')->insertGetId([
+        $user2 = (int) DB::table('users')->insertGetId([
             'Username' => 'janedoe',
             'Email' => 'jane@example.com',
             'Password' => Hash::make('password'),
             'NamaLengkap' => 'Jane Doe',
             'Alamat' => 'Bandung, Indonesia',
+            'Role' => 'user',
             'created_at' => now(),
             'updated_at' => now(),
         ]);
 
-        $user3 = DB::table('users')->insertGetId([
+        $user3 = (int) DB::table('users')->insertGetId([
             'Username' => 'admin',
             'Email' => 'admin@example.com',
             'Password' => Hash::make('admin123'),
             'NamaLengkap' => 'Admin Galeri',
             'Alamat' => 'Surabaya, Indonesia',
+            'Role' => 'admin',
             'created_at' => now(),
             'updated_at' => now(),
         ]);
 
-        // Buat album untuk setiap user
+        // Buat album dummy untuk tiap user
         DB::table('album')->insert([
             [
                 'NamaAlbum' => 'Liburan 2024',

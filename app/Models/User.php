@@ -13,7 +13,7 @@ class User extends Authenticatable
     use HasApiTokens, Notifiable, HasFactory;
 
     protected $table = 'users';
-    protected $primaryKey = 'UserID'; // Custom PK
+    protected $primaryKey = 'UserID';
     public $incrementing = true;
     protected $keyType = 'int';
     public $timestamps = true;
@@ -24,7 +24,7 @@ class User extends Authenticatable
         'Email',
         'NamaLengkap',
         'Alamat',
-        'role'
+        'Role',
     ];
 
     protected $hidden = [
@@ -36,30 +36,19 @@ class User extends Authenticatable
         'Email_verified_at' => 'datetime',
     ];
 
-    /**
-     * Override default password field used by Laravel
-     */
+    // Laravel Auth pakai ini
     public function getAuthPassword()
     {
         return $this->Password;
     }
 
-    /**
-     * Ensure password always hashed automatically
-     */
+    // Auto hash password
     public function setPasswordAttribute($value)
     {
-        if ($value && !Hash::needsRehash($value)) {
-            $this->attributes['Password'] = Hash::make($value);
-        } else {
-            $this->attributes['Password'] = $value;
-        }
+        $this->attributes['Password'] = Hash::make($value);
     }
 
-    /**
-     * User -> Foto relationship
-     * 1 user punya banyak foto
-     */
+    // Relasi ke Foto (jika ada)
     public function fotos()
     {
         return $this->hasMany(Foto::class, 'UserID', 'UserID');

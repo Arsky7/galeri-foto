@@ -25,14 +25,14 @@ class LoginController extends Controller
             'Password.required' => 'Password wajib diisi',
         ]);
 
-        // Cek apakah login pakai email atau username
-        $loginType = filter_var($request->login, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+        // Tentukan login pakai username atau email
+        $loginType = filter_var($request->login, FILTER_VALIDATE_EMAIL) ? 'Email' : 'Username';
 
+        // Auth::attempt harus pakai key 'password' lowercase
         $credentials = [
-    $loginType => $request->login,
-    'password' => $request->Password,
-];
-
+            $loginType => $request->login,
+            'password' => $request->Password,
+        ];
 
         if (Auth::attempt($credentials, $request->filled('remember'))) {
             $request->session()->regenerate();
@@ -50,7 +50,7 @@ class LoginController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        
+
         return redirect()->route('login')->with('success', 'Logout berhasil');
     }
 }
