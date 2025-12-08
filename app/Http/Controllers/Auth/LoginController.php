@@ -8,27 +8,20 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-    // Tampilkan halaman login
     public function showLoginForm()
     {
         return view('auth.login');
     }
 
-    // Proses login
     public function login(Request $request)
     {
         $request->validate([
             'login' => 'required',
             'Password' => 'required',
-        ], [
-            'login.required' => 'Username atau Email wajib diisi',
-            'Password.required' => 'Password wajib diisi',
         ]);
 
-        // Tentukan login pakai username atau email
         $loginType = filter_var($request->login, FILTER_VALIDATE_EMAIL) ? 'Email' : 'Username';
 
-        // Auth::attempt harus pakai key 'password' lowercase
         $credentials = [
             $loginType => $request->login,
             'password' => $request->Password,
@@ -44,7 +37,6 @@ class LoginController extends Controller
         ])->withInput();
     }
 
-    // Logout
     public function logout(Request $request)
     {
         Auth::logout();

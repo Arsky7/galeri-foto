@@ -5,12 +5,10 @@ namespace App\Models;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Support\Facades\Hash;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, Notifiable, HasFactory;
+    use HasApiTokens, Notifiable;
 
     protected $table = 'users';
     protected $primaryKey = 'UserID';
@@ -36,21 +34,33 @@ class User extends Authenticatable
         'Email_verified_at' => 'datetime',
     ];
 
-    // Laravel Auth pakai ini
+    // Wajib agar Auth::attempt membaca field Password custom
     public function getAuthPassword()
     {
         return $this->Password;
     }
 
-    // Auto hash password
-    public function setPasswordAttribute($value)
+    // Relasi: 1 User banyak Album
+    public function albums()
     {
-        $this->attributes['Password'] = Hash::make($value);
+        return $this->hasMany(Album::class, 'UserID');
     }
 
-    // Relasi ke Foto (jika ada)
+    // Relasi: 1 User banyak Foto
     public function fotos()
     {
-        return $this->hasMany(Foto::class, 'UserID', 'UserID');
+        return $this->hasMany(Foto::class, 'UserID');
+    }
+
+    // Relasi: 1 User banyak Komentar
+    public function komentars()
+    {
+        return $this->hasMany(KomentarFoto::class, 'UserID');
+    }
+
+    // Relasi: 1 User banyak Like
+    public function likes()
+    {
+        return $this->hasMany(LikeFoto::class, 'UserID');
     }
 }
