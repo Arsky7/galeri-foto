@@ -3,228 +3,203 @@
 @section('title', 'Upload Foto')
 
 @section('content')
-
 <style>
     .upload-container {
         animation: slideInUp 0.6s ease;
     }
-    
     @keyframes slideInUp {
-        from {
-            opacity: 0;
-            transform: translateY(30px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        from { opacity: 0; transform: translateY(30px); }
+        to { opacity: 1; transform: translateY(0); }
     }
-    
+
     .upload-header {
-        background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
-        border-radius: 20px;
-        padding: 2.5rem;
-        color: white;
-        margin-bottom: 2rem;
+        background: linear-gradient(135deg, rgba(15,15,15,0.95) 0%, rgba(25,25,25,0.9) 100%);
+        border-radius: 24px;
+        padding: 2.8rem;
         position: relative;
         overflow: hidden;
-        box-shadow: 0 10px 40px rgba(52, 152, 219, 0.2);
+        margin-bottom: 2.5rem;
+        border: 1px solid rgba(218,165,32,0.25);
+        box-shadow:
+            0 15px 50px rgba(0,0,0,0.6),
+            inset 0 0 30px rgba(218,165,32,0.1);
     }
-    
+
     .upload-header::before {
         content: '';
         position: absolute;
-        width: 200px;
-        height: 200px;
-        background: rgba(255, 255, 255, 0.1);
+        top: -80px;
+        right: -80px;
+        width: 250px;
+        height: 250px;
+        background: radial-gradient(circle, rgba(218,165,32,0.1) 0%, transparent 70%);
         border-radius: 50%;
-        top: -100px;
-        right: -50px;
+        z-index: 0;
     }
-    
-    .upload-icon {
-        width: 70px;
-        height: 70px;
-        background: rgba(255, 255, 255, 0.2);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-bottom: 1rem;
-        backdrop-filter: blur(10px);
-        border: 2px solid rgba(255, 255, 255, 0.3);
-    }
-    
-    .upload-card {
-        background: white;
-        border: none;
-        border-radius: 20px;
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-        overflow: hidden;
-    }
-    
-    .preview-section {
-        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-        padding: 2rem;
-        border-radius: 16px;
-        margin-bottom: 2rem;
-        position: relative;
-        overflow: hidden;
-    }
-    
-    .preview-section::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 3px;
-        background: linear-gradient(90deg, #3498db, #2c3e50, #3498db);
-        background-size: 200% 100%;
-        animation: gradientSlide 3s ease infinite;
-    }
-    
-    @keyframes gradientSlide {
-        0%, 100% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-    }
-    
-    .preview-label {
-        font-weight: 700;
-        color: #2c3e50;
-        margin-bottom: 1rem;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        font-size: 1.05rem;
-    }
-    
-    .preview-label i {
-        color: #3498db;
-    }
-    
-    .preview-box {
-        background: white;
-        border: 3px dashed #cbd5e0;
-        border-radius: 16px;
-        min-height: 350px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: all 0.3s ease;
-        position: relative;
-        overflow: hidden;
-    }
-    
-    .preview-box.has-image {
-        border-style: solid;
-        border-color: #3498db;
-    }
-    
-    .preview-placeholder {
-        text-align: center;
-        color: #7f8c8d;
-        transition: all 0.3s ease;
-    }
-    
-    .preview-placeholder i {
-        font-size: 5rem;
-        margin-bottom: 1rem;
-        opacity: 0.5;
-        animation: float 3s ease-in-out infinite;
-    }
-    
-    @keyframes float {
-        0%, 100% { transform: translateY(0px); }
-        50% { transform: translateY(-15px); }
-    }
-    
-    #previewImage {
-        max-height: 450px;
-        width: auto;
-        max-width: 100%;
-        border-radius: 12px;
-        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
-    }
-    
-    .form-section {
-        padding: 2rem;
-    }
-    
-    .form-group-custom {
-        margin-bottom: 1.75rem;
-    }
-    
-    .form-label-custom {
-        font-weight: 600;
-        color: #2c3e50;
+
+    .upload-title {
+        font-size: 2.3rem;
+        font-weight: 800;
+        background: linear-gradient(135deg, #FFD700 0%, #DAA520 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
         margin-bottom: 0.75rem;
         display: flex;
         align-items: center;
-        gap: 0.5rem;
-        font-size: 0.95rem;
+        gap: 0.8rem;
     }
-    
-    .form-label-custom i {
-        color: #3498db;
+
+    .upload-subtitle {
+        color: rgba(218,165,32,0.85);
+        font-size: 1.1rem;
+        max-width: 700px;
     }
-    
-    .required-badge {
-        display: inline-flex;
+
+    .upload-card {
+        background: linear-gradient(135deg, rgba(20,20,20,0.95) 0%, rgba(30,30,30,0.9) 100%);
+        border-radius: 22px;
+        border: 1px solid rgba(218,165,32,0.2);
+        box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        overflow: hidden;
+    }
+
+    .preview-section {
+        padding: 2rem;
+        border-bottom: 1px solid rgba(218,165,32,0.15);
+    }
+
+    .section-label {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: #FFD700;
+        margin-bottom: 1.5rem;
+        display: flex;
         align-items: center;
-        gap: 0.25rem;
-        padding: 0.125rem 0.5rem;
-        background: linear-gradient(135deg, #e74c3c, #c0392b);
-        color: white;
-        border-radius: 6px;
-        font-size: 0.7rem;
-        font-weight: 600;
+        gap: 0.7rem;
     }
-    
+
+    .preview-box {
+        background: rgba(10,10,10,0.6);
+        border: 2px dashed rgba(218,165,32,0.3);
+        border-radius: 18px;
+        min-height: 380px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.4s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .preview-box.has-image {
+        border-style: solid;
+        border-color: rgba(218,165,32,0.5);
+        box-shadow: 0 0 30px rgba(218,165,32,0.1);
+    }
+
+    .preview-placeholder {
+        text-align: center;
+        color: #aaa;
+        transition: opacity 0.3s ease;
+    }
+    .preview-placeholder i {
+        font-size: 5.5rem;
+        color: rgba(218,165,32,0.3);
+        margin-bottom: 1.2rem;
+        animation: float 3s ease-in-out infinite;
+    }
+    @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-15px); }
+    }
+
+    #previewImage {
+        max-height: 450px;
+        max-width: 100%;
+        border-radius: 14px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        animation: fadeIn 0.5s ease;
+    }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    .form-section {
+        padding: 2.2rem;
+    }
+
+    .form-group-custom {
+        margin-bottom: 1.8rem;
+    }
+
+    .form-label-custom {
+        font-weight: 700;
+        color: #FFD700;
+        margin-bottom: 0.8rem;
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        font-size: 1.05rem;
+    }
+
+    .required-badge {
+        background: linear-gradient(135deg, #c0392b, #e74c3c);
+        color: white;
+        font-size: 0.75rem;
+        padding: 0.15rem 0.6rem;
+        border-radius: 20px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+    }
+
     .form-control-custom,
     .form-select-custom,
     textarea.form-control-custom {
-        border: 2px solid #e0e6ed;
+        background: rgba(30,30,30,0.7);
+        border: 1px solid rgba(218,165,32,0.2);
         border-radius: 12px;
-        padding: 0.875rem 1rem;
+        padding: 0.9rem 1.1rem;
+        color: white;
+        font-size: 1rem;
         transition: all 0.3s ease;
-        background: white;
-        font-size: 0.95rem;
     }
-    
+    .form-control-custom::placeholder,
+    textarea.form-control-custom::placeholder {
+        color: rgba(255,255,255,0.4);
+    }
     .form-control-custom:focus,
     .form-select-custom:focus,
     textarea.form-control-custom:focus {
-        border-color: #3498db;
-        box-shadow: 0 0 0 4px rgba(52, 152, 219, 0.1);
+        border-color: #DAA520;
+        box-shadow: 0 0 0 4px rgba(218,165,32,0.2);
         outline: none;
+        background: rgba(35,35,35,0.8);
     }
-    
+
     textarea.form-control-custom {
+        min-height: 130px;
         resize: vertical;
-        min-height: 120px;
     }
-    
+
     .file-input-wrapper {
         position: relative;
     }
-    
+
     .file-input-custom {
-        border: 2px dashed #cbd5e0;
-        border-radius: 12px;
-        padding: 1.5rem;
+        background: linear-gradient(135deg, rgba(218,165,32,0.08) 0%, rgba(255,215,0,0.05) 100%);
+        border: 2px dashed rgba(218,165,32,0.3);
+        border-radius: 16px;
+        padding: 2rem;
         text-align: center;
         cursor: pointer;
-        transition: all 0.3s ease;
-        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        transition: all 0.4s ease;
     }
-    
+
     .file-input-custom:hover {
-        border-color: #3498db;
-        background: linear-gradient(135deg, #ebf4f5 0%, #b5c6e0 100%);
-        transform: translateY(-2px);
+        border-color: #DAA520;
+        background: linear-gradient(135deg, rgba(218,165,32,0.15) 0%, rgba(255,215,0,0.1) 100%);
+        transform: scale(1.02);
     }
-    
+
     .file-input-custom input[type="file"] {
         position: absolute;
         opacity: 0;
@@ -234,309 +209,267 @@
         top: 0;
         left: 0;
     }
-    
+
     .file-hint {
-        font-size: 0.85rem;
-        color: #7f8c8d;
-        margin-top: 0.5rem;
+        color: #999;
+        font-size: 0.9rem;
+        margin-top: 0.7rem;
         display: flex;
         align-items: center;
-        gap: 0.375rem;
+        gap: 0.5rem;
     }
-    
+
     .char-counter {
-        font-size: 0.85rem;
-        color: #7f8c8d;
+        color: #999;
         text-align: right;
-        margin-top: 0.25rem;
+        margin-top: 0.4rem;
+        font-size: 0.9rem;
     }
-    
+
     .alert-custom {
-        border: none;
+        background: rgba(218,165,32,0.1);
+        border: 1px solid rgba(218,165,32,0.3);
         border-radius: 12px;
-        padding: 1.25rem;
-        background: linear-gradient(135deg, #fff3cd 0%, #ffe69c 100%);
-        border-left: 4px solid #ffc107;
+        padding: 1.2rem;
+        color: #FFD700;
+        margin: 1.5rem 0;
     }
-    
-    .alert-custom i {
-        font-size: 1.25rem;
-        margin-right: 0.5rem;
-    }
-    
-    .alert-custom a {
-        color: #2c3e50;
-        font-weight: 700;
-        text-decoration: underline;
-    }
-    
-    .action-buttons {
-        display: flex;
-        gap: 1rem;
-        margin-top: 2rem;
-    }
-    
-    .btn-cancel {
-        flex: 1;
-        border: 2px solid #3498db;
-        color: #3498db;
-        background: transparent;
-        padding: 1rem;
-        border-radius: 12px;
-        font-weight: 600;
-        transition: all 0.3s ease;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 0.5rem;
-    }
-    
-    .btn-cancel:hover {
-        background: #3498db;
-        color: white;
-        transform: translateY(-2px);
-        box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
-    }
-    
-    .btn-upload {
-        flex: 1;
-        background: linear-gradient(135deg, #3498db 0%, #2c3e50 100%);
-        color: white;
-        border: none;
-        padding: 1rem;
-        border-radius: 12px;
-        font-weight: 600;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 0.5rem;
-    }
-    
-    .btn-upload:hover:not(:disabled) {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
-        background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
-    }
-    
-    .btn-upload:disabled {
-        opacity: 0.6;
-        cursor: not-allowed;
-    }
-    
+
     .tips-card {
-        background: linear-gradient(135deg, #ebf4f5 0%, #b5c6e0 100%);
-        border-radius: 12px;
+        background: linear-gradient(135deg, rgba(218,165,32,0.08) 0%, rgba(255,215,0,0.05) 100%);
+        border: 1px solid rgba(218,165,32,0.2);
+        border-radius: 16px;
         padding: 1.5rem;
         margin-top: 2rem;
     }
-    
+
     .tips-card h6 {
-        color: #2c3e50;
+        color: #FFD700;
         font-weight: 700;
         margin-bottom: 1rem;
         display: flex;
         align-items: center;
-        gap: 0.5rem;
+        gap: 0.6rem;
     }
-    
+
     .tips-card ul {
+        padding-left: 1.4rem;
         margin: 0;
-        padding-left: 1.25rem;
     }
-    
+
     .tips-card li {
-        color: #2c3e50;
+        color: #ccc;
         line-height: 1.8;
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.6rem;
+    }
+
+    .action-buttons {
+        display: flex;
+        gap: 1.2rem;
+        margin-top: 2.2rem;
+    }
+
+    .btn-cancel {
+        flex: 1;
+        background: rgba(218,165,32,0.15);
+        color: #FFD700;
+        border: 1px solid rgba(218,165,32,0.3);
+        padding: 1rem;
+        border-radius: 12px;
+        font-weight: 700;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.6rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    .btn-cancel:hover {
+        background: rgba(218,165,32,0.3);
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(218,165,32,0.2);
+    }
+
+    .btn-upload {
+        flex: 1;
+        background: linear-gradient(135deg, #DAA520 0%, #FFD700 100%);
+        color: #000;
+        border: none;
+        padding: 1rem;
+        border-radius: 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        transition: all 0.4s ease;
+        box-shadow: 0 8px 25px rgba(218,165,32,0.4);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.6rem;
+    }
+    .btn-upload:hover:not(:disabled) {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 35px rgba(218,165,32,0.6);
+        background: linear-gradient(135deg, #FFD700 0%, #DAA520 100%);
+    }
+    .btn-upload:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        background: #555;
+        color: #888;
+    }
+
+    @media (max-width: 768px) {
+        .action-buttons { flex-direction: column; }
+        .upload-header { padding: 2rem 1.5rem; }
+        .upload-title { font-size: 1.8rem; }
+        .preview-box { min-height: 300px; }
     }
 </style>
 
 <div class="upload-container">
-    <!-- Header -->
-    <div class="upload-header position-relative">
-        <div class="upload-icon">
-            <i class="bi bi-cloud-upload-fill text-white" style="font-size: 2rem;"></i>
-        </div>
-        <h2 class="fw-bold mb-2">Upload Foto Baru</h2>
-        <p class="mb-0 opacity-90">Bagikan momen indah Anda dengan dunia</p>
+    <div class="upload-header">
+        <h2 class="upload-title">
+            <i class="bi bi-cloud-upload-fill"></i> Upload Foto Baru
+        </h2>
+        <p class="upload-subtitle">Bagikan momen indah Anda dengan dunia</p>
     </div>
-    
+
     <div class="row justify-content-center">
         <div class="col-lg-10">
-            
             <div class="upload-card">
                 <form action="{{ route('foto.store') }}" method="POST" enctype="multipart/form-data" id="uploadForm">
                     @csrf
-                    
-                    <!-- Preview Section -->
+
                     <div class="preview-section">
-                        <div class="preview-label">
-                            <i class="bi bi-image"></i>
-                            Preview Foto
-                        </div>
+                        <h3 class="section-label">
+                            <i class="bi bi-eye"></i> Preview Foto
+                        </h3>
                         <div class="preview-box" id="previewBox">
                             <div class="preview-placeholder" id="previewPlaceholder">
                                 <i class="bi bi-camera"></i>
                                 <h5>Belum ada foto dipilih</h5>
                                 <p>Pilih file foto untuk melihat preview</p>
                             </div>
-                            <img id="previewImage" src="" alt="Preview" class="d-none">
+                            <img id="previewImage" src="" alt="Preview">
                         </div>
                     </div>
-                    
-                    <!-- Form Section -->
+
                     <div class="form-section">
-                        
                         <!-- File Upload -->
                         <div class="form-group-custom">
                             <label class="form-label-custom">
-                                <i class="bi bi-upload"></i>
-                                Pilih Foto
-                                <span class="required-badge">
-                                    <i class="bi bi-asterisk" style="font-size: 0.6rem;"></i>
-                                    Wajib
-                                </span>
+                                <i class="bi bi-upload"></i> Pilih Foto
+                                <span class="required-badge">Wajib</span>
                             </label>
                             <div class="file-input-wrapper">
                                 <div class="file-input-custom">
-                                    <i class="bi bi-cloud-arrow-up" style="font-size: 2.5rem; color: #3498db;"></i>
+                                    <i class="bi bi-cloud-arrow-up" style="font-size: 2.8rem; color: #DAA520;"></i>
                                     <p class="mb-2 fw-bold">Klik untuk memilih foto</p>
-                                    <p class="text-muted small mb-0">atau drag & drop file disini</p>
-                                    <input type="file" 
-                                           name="foto" 
-                                           id="fotoInput"
-                                           class="@error('foto') is-invalid @enderror" 
-                                           accept="image/*"
-                                           required>
+                                    <p class="text-muted small">atau drag & drop file di sini</p>
+                                    <input type="file" name="foto" id="fotoInput" accept="image/*" required>
                                 </div>
                             </div>
                             <div class="file-hint">
-                                <i class="bi bi-info-circle"></i>
-                                Format: JPG, PNG, GIF • Maksimal: 5MB
+                                <i class="bi bi-info-circle"></i> Format: JPG, PNG, GIF • Maks: 5MB
                             </div>
                             @error('foto')
-                                <div class="invalid-feedback d-block">{{ $message }}</div>
+                                <div class="text-danger mt-2" style="font-size: 0.9rem;">{{ $message }}</div>
                             @enderror
                         </div>
-                        
-                        <!-- Judul Foto -->
+
+                        <!-- Judul -->
                         <div class="form-group-custom">
                             <label class="form-label-custom">
-                                <i class="bi bi-type"></i>
-                                Judul Foto
-                                <span class="required-badge">
-                                    <i class="bi bi-asterisk" style="font-size: 0.6rem;"></i>
-                                    Wajib
-                                </span>
+                                <i class="bi bi-type"></i> Judul Foto
+                                <span class="required-badge">Wajib</span>
                             </label>
-                            <input type="text" 
-                                   name="JudulFoto" 
-                                   id="judulFoto"
-                                   class="form-control-custom @error('JudulFoto') is-invalid @enderror" 
-                                   value="{{ old('JudulFoto') }}"
-                                   placeholder="Contoh: Sunset di Pantai Kuta, Pemandangan Gunung Bromo..."
-                                   maxlength="150"
-                                   required>
+                            <input type="text" name="JudulFoto" id="judulFoto" class="form-control-custom" 
+                                   value="{{ old('JudulFoto') }}" maxlength="150" required>
                             <div class="char-counter">
                                 <span id="judulCount">0</span>/150 karakter
                             </div>
                             @error('JudulFoto')
-                                <div class="invalid-feedback d-block">{{ $message }}</div>
+                                <div class="text-danger mt-2" style="font-size: 0.9rem;">{{ $message }}</div>
                             @enderror
                         </div>
-                        
+
                         <!-- Deskripsi -->
                         <div class="form-group-custom">
                             <label class="form-label-custom">
-                                <i class="bi bi-card-text"></i>
-                                Deskripsi Foto
-                                <span class="badge bg-light text-dark" style="font-size: 0.7rem;">Opsional</span>
+                                <i class="bi bi-card-text"></i> Deskripsi Foto
+                                <span class="badge bg-secondary" style="font-size: 0.75rem; padding: 0.25em 0.6em;">Opsional</span>
                             </label>
-                            <textarea name="DeskripsiFoto" 
-                                      id="deskripsiFoto"
-                                      class="form-control-custom @error('DeskripsiFoto') is-invalid @enderror" 
-                                      placeholder="Ceritakan tentang foto ini... Dimana, kapan, dan momen apa yang diabadikan"
+                            <textarea name="DeskripsiFoto" id="deskripsiFoto" class="form-control-custom" 
                                       maxlength="500">{{ old('DeskripsiFoto') }}</textarea>
                             <div class="char-counter">
                                 <span id="deskripsiCount">0</span>/500 karakter
                             </div>
                             @error('DeskripsiFoto')
-                                <div class="invalid-feedback d-block">{{ $message }}</div>
+                                <div class="text-danger mt-2" style="font-size: 0.9rem;">{{ $message }}</div>
                             @enderror
                         </div>
-                        
-                        <!-- Pilih Album -->
+
+                        <!-- Album -->
                         <div class="form-group-custom">
                             <label class="form-label-custom">
-                                <i class="bi bi-folder"></i>
-                                Pilih Album
-                                <span class="required-badge">
-                                    <i class="bi bi-asterisk" style="font-size: 0.6rem;"></i>
-                                    Wajib
-                                </span>
+                                <i class="bi bi-folder"></i> Pilih Album
+                                <span class="required-badge">Wajib</span>
                             </label>
-                            
                             @if($albums->count() > 0)
-                            <select name="AlbumID" class="form-select-custom @error('AlbumID') is-invalid @enderror" required>
-                                <option value="">-- Pilih Album --</option>
-                                @foreach($albums as $album)
-                                <option value="{{ $album->AlbumID }}" {{ old('AlbumID') == $album->AlbumID ? 'selected' : '' }}>
-                                    {{ $album->NamaAlbum }}
-                                </option>
-                                @endforeach
-                            </select>
-                            @error('AlbumID')
-                                <div class="invalid-feedback d-block">{{ $message }}</div>
-                            @enderror
+                                <select name="AlbumID" class="form-select-custom" required>
+                                    <option value="">-- Pilih Album --</option>
+                                    @foreach($albums as $album)
+                                        <option value="{{ $album->AlbumID }}" {{ old('AlbumID') == $album->AlbumID ? 'selected' : '' }}>
+                                            {{ $album->NamaAlbum }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @error('AlbumID')
+                                    <div class="text-danger mt-2" style="font-size: 0.9rem;">{{ $message }}</div>
+                                @enderror
                             @else
-                            <div class="alert-custom">
-                                <i class="bi bi-exclamation-triangle-fill"></i>
-                                <strong>Anda belum memiliki album!</strong><br>
-                                Silakan <a href="{{ route('album.create') }}">buat album terlebih dahulu</a> sebelum upload foto.
-                            </div>
+                                <div class="alert-custom">
+                                    <i class="bi bi-exclamation-triangle-fill"></i>
+                                    <strong>Anda belum memiliki album!</strong><br>
+                                    Silakan <a href="{{ route('album.create') }}" style="color: #FFD700; text-decoration: underline;">buat album terlebih dahulu</a>.
+                                </div>
                             @endif
                         </div>
-                        
-                        <!-- Tips Card -->
+
+                        <!-- Tips -->
                         <div class="tips-card">
                             <h6>
-                                <i class="bi bi-lightbulb-fill text-warning"></i>
-                                Tips Upload Foto yang Baik
+                                <i class="bi bi-lightbulb-fill text-warning"></i> Tips Upload Foto yang Baik
                             </h6>
                             <ul>
-                                <li>Gunakan foto dengan resolusi yang baik untuk hasil optimal</li>
-                                <li>Beri judul yang deskriptif dan menarik</li>
-                                <li>Tambahkan deskripsi untuk menceritakan konteks foto</li>
-                                <li>Pastikan foto sudah masuk ke album yang sesuai</li>
+                                <li>Gunakan foto dengan resolusi tinggi untuk tampilan optimal</li>
+                                <li>Beri judul yang deskriptif dan menarik perhatian</li>
+                                <li>Tambahkan deskripsi untuk menceritakan konteks momen</li>
+                                <li>Pastikan foto ditempatkan di album yang sesuai</li>
                             </ul>
                         </div>
-                        
-                        <!-- Action Buttons -->
+
+                        <!-- Buttons -->
                         <div class="action-buttons">
                             <a href="{{ route('foto.index') }}" class="btn-cancel">
-                                <i class="bi bi-x-circle"></i>
-                                Batal
+                                <i class="bi bi-x-circle"></i> Batal
                             </a>
                             <button type="submit" class="btn-upload" {{ $albums->count() == 0 ? 'disabled' : '' }}>
-                                <i class="bi bi-cloud-upload"></i>
-                                Upload Foto
+                                <i class="bi bi-cloud-upload"></i> Upload Foto
                             </button>
                         </div>
                     </div>
                 </form>
             </div>
-            
         </div>
     </div>
 </div>
-
 @endsection
 
 @section('scripts')
 <script>
-// Preview gambar sebelum upload
 const fotoInput = document.getElementById('fotoInput');
 const previewBox = document.getElementById('previewBox');
 const previewPlaceholder = document.getElementById('previewPlaceholder');
@@ -547,57 +480,46 @@ fotoInput.addEventListener('change', function(e) {
     if (file) {
         const reader = new FileReader();
         reader.onload = function(e) {
-            previewPlaceholder.classList.add('d-none');
+            previewPlaceholder.style.display = 'none';
             previewImage.src = e.target.result;
-            previewImage.classList.remove('d-none');
+            previewImage.style.display = 'block';
             previewBox.classList.add('has-image');
         }
         reader.readAsDataURL(file);
     }
 });
 
-// Character counter untuk judul
-const judulFoto = document.getElementById('judulFoto');
-const judulCount = document.getElementById('judulCount');
-
-if (judulFoto) {
-    judulFoto.addEventListener('input', function() {
-        judulCount.textContent = this.value.length;
-    });
-    judulCount.textContent = judulFoto.value.length;
-}
-
-// Character counter untuk deskripsi
-const deskripsiFoto = document.getElementById('deskripsiFoto');
-const deskripsiCount = document.getElementById('deskripsiCount');
-
-if (deskripsiFoto) {
-    deskripsiFoto.addEventListener('input', function() {
-        deskripsiCount.textContent = this.value.length;
-    });
-    deskripsiCount.textContent = deskripsiFoto.value.length;
-}
-
-// Drag and drop support
-const fileInputCustom = document.querySelector('.file-input-custom');
-
-fileInputCustom.addEventListener('dragover', function(e) {
-    e.preventDefault();
-    this.style.borderColor = '#3498db';
-    this.style.background = 'linear-gradient(135deg, #ebf4f5 0%, #b5c6e0 100%)';
-});
-
-fileInputCustom.addEventListener('dragleave', function(e) {
-    e.preventDefault();
-    this.style.borderColor = '#cbd5e0';
-    this.style.background = 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)';
-});
-
-fileInputCustom.addEventListener('drop', function(e) {
-    e.preventDefault();
-    this.style.borderColor = '#cbd5e0';
-    this.style.background = 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)';
+// Character counters
+const updateCounter = (inputId, counterId, max) => {
+    const input = document.getElementById(inputId);
+    const counter = document.getElementById(counterId);
+    if (!input || !counter) return;
     
+    input.addEventListener('input', () => {
+        counter.textContent = input.value.length;
+    });
+    counter.textContent = input.value.length;
+};
+
+updateCounter('judulFoto', 'judulCount', 150);
+updateCounter('deskripsiFoto', 'deskripsiCount', 500);
+
+// Drag & drop
+const fileInputCustom = document.querySelector('.file-input-custom');
+fileInputCustom.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    fileInputCustom.style.borderColor = '#DAA520';
+    fileInputCustom.style.background = 'linear-gradient(135deg, rgba(218,165,32,0.15), rgba(255,215,0,0.1))';
+});
+fileInputCustom.addEventListener('dragleave', (e) => {
+    e.preventDefault();
+    fileInputCustom.style.borderColor = 'rgba(218,165,32,0.3)';
+    fileInputCustom.style.background = 'linear-gradient(135deg, rgba(218,165,32,0.08), rgba(255,215,0,0.05))';
+});
+fileInputCustom.addEventListener('drop', (e) => {
+    e.preventDefault();
+    fileInputCustom.style.borderColor = 'rgba(218,165,32,0.3)';
+    fileInputCustom.style.background = 'linear-gradient(135deg, rgba(218,165,32,0.08), rgba(255,215,0,0.05))';
     const files = e.dataTransfer.files;
     if (files.length > 0) {
         fotoInput.files = files;

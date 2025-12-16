@@ -3,335 +3,379 @@
 @section('title', $foto->JudulFoto)
 
 @section('content')
-
 <style>
     .foto-detail-container {
         animation: fadeIn 0.6s ease;
     }
-    
     @keyframes fadeIn {
         from { opacity: 0; }
         to { opacity: 1; }
     }
-    
+
     .btn-back-custom {
-        background: linear-gradient(135deg, #3498db 0%, #2c3e50 100%);
-        color: white;
-        border: none;
+        background: linear-gradient(135deg, rgba(218,165,32,0.15) 0%, rgba(255,215,0,0.1) 100%);
+        color: #FFD700;
+        border: 1px solid rgba(218,165,32,0.3);
         padding: 0.75rem 1.5rem;
         border-radius: 12px;
-        font-weight: 600;
+        font-weight: 700;
         transition: all 0.3s ease;
         display: inline-flex;
         align-items: center;
-        gap: 0.5rem;
-        margin-bottom: 1.5rem;
-        box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+        gap: 0.6rem;
+        margin-bottom: 1.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
     }
-    
     .btn-back-custom:hover {
+        background: linear-gradient(135deg, #DAA520 0%, #FFD700 100%);
+        color: #000;
         transform: translateX(-5px);
-        box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
-        color: white;
+        box-shadow: 0 6px 20px rgba(218,165,32,0.3);
     }
-    
+
     .foto-main-card {
-        border: none;
-        border-radius: 20px;
+        background: linear-gradient(135deg, rgba(20,20,20,0.95) 0%, rgba(30,30,30,0.9) 100%);
+        border-radius: 22px;
         overflow: hidden;
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-        background: white;
+        border: 1px solid rgba(218,165,32,0.2);
+        box-shadow: 0 15px 50px rgba(0,0,0,0.5);
     }
-    
+
     .foto-image-container {
-        position: relative;
-        background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
-        padding: 1rem;
+        padding: 1.5rem;
+        background: #0f0f0f;
     }
-    
+
     .foto-image-container img {
         width: 100%;
-        height: auto;
         max-height: 600px;
         object-fit: contain;
-        border-radius: 16px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        border-radius: 18px;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.7);
+        display: block;
+        margin: 0 auto;
     }
-    
+
     .btn-delete-custom {
-        background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
-        color: white;
-        border: none;
+        background: linear-gradient(135deg, rgba(220,53,69,0.2) 0%, rgba(192,57,43,0.2) 100%);
+        color: #ff6b6b;
+        border: 1px solid rgba(220,53,69,0.3);
         padding: 0.875rem 2rem;
         border-radius: 12px;
-        font-weight: 600;
+        font-weight: 700;
         transition: all 0.3s ease;
-        box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
         display: inline-flex;
         align-items: center;
-        gap: 0.5rem;
-        margin-top: 1rem;
+        gap: 0.6rem;
+        margin-top: 1.2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
     }
-    
     .btn-delete-custom:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(231, 76, 60, 0.4);
         background: linear-gradient(135deg, #c0392b 0%, #e74c3c 100%);
+        color: white;
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(220,53,69,0.4);
     }
-    
+
     .info-card {
-        border: none;
-        border-radius: 20px;
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-        background: white;
-        margin-bottom: 1.5rem;
+        background: linear-gradient(135deg, rgba(20,20,20,0.95) 0%, rgba(30,30,30,0.9) 100%);
+        border-radius: 22px;
+        border: 1px solid rgba(218,165,32,0.2);
+        box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        margin-bottom: 1.8rem;
         overflow: hidden;
     }
-    
+
     .user-info-section {
-        display: flex;
-        align-items: center;
         padding: 1.5rem;
-        background: linear-gradient(135deg, #ebf4f5 0%, #b5c6e0 100%);
-        border-bottom: 3px solid #3498db;
+        background: rgba(218,165,32,0.08);
+        border-bottom: 2px solid rgba(218,165,32,0.3);
     }
-    
+
     .user-avatar {
         width: 60px;
         height: 60px;
-        background: linear-gradient(135deg, #3498db 0%, #2c3e50 100%);
+        background: linear-gradient(135deg, #DAA520, #FFD700);
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
-        color: white;
+        color: #000;
         font-size: 1.75rem;
-        font-weight: 700;
-        margin-right: 1rem;
-        border: 3px solid white;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        font-weight: 800;
+        margin-right: 1.2rem;
+        border: 3px solid rgba(255,255,255,0.2);
+        box-shadow: 0 4px 15px rgba(218,165,32,0.25);
     }
-    
+
     .user-info h6 {
         font-weight: 700;
-        color: #2c3e50;
-        margin-bottom: 0.25rem;
+        color: #FFD700;
+        margin-bottom: 0.3rem;
+        font-size: 1.1rem;
     }
-    
     .user-info small {
-        color: #7f8c8d;
+        color: #aaa;
         font-weight: 500;
     }
-    
+
     .foto-content {
-        padding: 1.5rem;
+        padding: 1.7rem;
     }
-    
+
     .foto-title {
-        font-size: 1.5rem;
-        font-weight: 700;
-        color: #2c3e50;
-        margin-bottom: 1rem;
+        font-size: 1.6rem;
+        font-weight: 800;
+        color: #FFD700;
+        margin-bottom: 1.2rem;
         line-height: 1.4;
+        text-shadow: 0 0 8px rgba(0,0,0,0.5);
     }
-    
+
     .foto-description {
-        color: #7f8c8d;
+        color: #ccc;
         line-height: 1.7;
-        margin-bottom: 1.5rem;
+        margin-bottom: 1.8rem;
+        font-size: 1.02rem;
     }
-    
+    .foto-description.fst-italic {
+        color: #888;
+    }
+
     .meta-info {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-        gap: 1rem;
-        margin-bottom: 1.5rem;
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 1.1rem;
+        margin-bottom: 1.8rem;
     }
-    
+
     .meta-item {
         display: flex;
         align-items: center;
-        gap: 0.5rem;
-        padding: 0.75rem;
-        background: #f8f9fa;
+        gap: 0.6rem;
+        padding: 0.8rem;
+        background: rgba(30,30,30,0.6);
         border-radius: 10px;
-        font-size: 0.9rem;
-        color: #2c3e50;
+        border: 1px solid rgba(218,165,32,0.15);
+        font-size: 0.95rem;
+        color: #ddd;
     }
-    
     .meta-item i {
-        color: #3498db;
-        font-size: 1.1rem;
+        color: #DAA520;
+        font-size: 1.2rem;
     }
-    
+
     .btn-like {
         width: 100%;
-        padding: 1rem;
+        padding: 1.1rem;
         border-radius: 12px;
-        font-weight: 600;
-        font-size: 1.05rem;
+        font-weight: 700;
+        font-size: 1.1rem;
         transition: all 0.3s ease;
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 0.5rem;
+        gap: 0.7rem;
         border: none;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
     }
-    
+
     .btn-like.liked {
-        background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+        background: linear-gradient(135deg, #c0392b 0%, #e74c3c 100%);
         color: white;
-        box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+        box-shadow: 0 6px 20px rgba(231, 76, 60, 0.3);
     }
-    
+
     .btn-like.not-liked {
-        background: white;
-        color: #e74c3c;
-        border: 2px solid #e74c3c;
+        background: rgba(30,30,30,0.7);
+        color: #DAA520;
+        border: 1px solid rgba(218,165,32,0.3);
     }
-    
+
     .btn-like:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(231, 76, 60, 0.4);
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(218,165,32,0.4);
     }
-    
+
     .comments-card {
-        border: none;
-        border-radius: 20px;
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-        background: white;
+        background: linear-gradient(135deg, rgba(20,20,20,0.95) 0%, rgba(30,30,30,0.9) 100%);
+        border-radius: 22px;
+        border: 1px solid rgba(218,165,32,0.2);
+        box-shadow: 0 10px 40px rgba(0,0,0,0.5);
         overflow: hidden;
     }
-    
+
     .comments-header {
         padding: 1.5rem;
-        background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
-        color: white;
+        background: rgba(218,165,32,0.1);
+        color: #FFD700;
         display: flex;
         align-items: center;
-        gap: 0.75rem;
+        gap: 0.8rem;
+        border-bottom: 1px solid rgba(218,165,32,0.2);
     }
-    
+
     .comments-header h5 {
         margin: 0;
+        font-weight: 800;
+        font-size: 1.25rem;
+    }
+
+    .comment-count-badge {
+        background: rgba(218,165,32,0.25);
+        color: #FFD700;
+        padding: 0.25rem 0.85rem;
+        border-radius: 50px;
+        font-size: 0.95rem;
         font-weight: 700;
     }
-    
-    .comment-count-badge {
-        background: rgba(255, 255, 255, 0.25);
-        padding: 0.25rem 0.75rem;
-        border-radius: 50px;
-        font-size: 0.9rem;
-    }
-    
+
     .comment-form {
         padding: 1.5rem;
-        background: #f8f9fa;
+        background: rgba(15,15,15,0.7);
     }
-    
+
     .comment-textarea {
-        border: 2px solid #e0e6ed;
+        background: rgba(30,30,30,0.8);
+        border: 1px solid rgba(218,165,32,0.2);
         border-radius: 12px;
         padding: 1rem;
+        color: white;
         resize: vertical;
         transition: all 0.3s ease;
-        margin-bottom: 1rem;
+        margin-bottom: 1.2rem;
+        font-size: 1rem;
     }
-    
+    .comment-textarea::placeholder {
+        color: rgba(255,255,255,0.4);
+    }
     .comment-textarea:focus {
-        border-color: #3498db;
-        box-shadow: 0 0 0 4px rgba(52, 152, 219, 0.1);
+        border-color: #DAA520;
+        box-shadow: 0 0 0 4px rgba(218,165,32,0.2);
         outline: none;
+        background: rgba(35,35,35,0.9);
     }
-    
+
     .btn-send-comment {
         width: 100%;
-        background: linear-gradient(135deg, #3498db 0%, #2c3e50 100%);
-        color: white;
+        background: linear-gradient(135deg, #DAA520 0%, #FFD700 100%);
+        color: #000;
         border: none;
-        padding: 0.875rem;
+        padding: 1rem;
         border-radius: 12px;
-        font-weight: 600;
+        font-weight: 700;
         transition: all 0.3s ease;
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 0.5rem;
+        gap: 0.6rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        box-shadow: 0 6px 20px rgba(218,165,32,0.4);
     }
-    
+
     .btn-send-comment:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
+        transform: translateY(-3px);
+        box-shadow: 0 10px 30px rgba(218,165,32,0.6);
+        background: linear-gradient(135deg, #FFD700 0%, #DAA520 100%);
     }
-    
+
     .comments-list {
-        padding: 1.5rem;
+        padding: 0 1.5rem 1.5rem;
         max-height: 500px;
         overflow-y: auto;
     }
-    
+
     .comment-item {
-        padding: 1.25rem;
-        background: #f8f9fa;
+        padding: 1.3rem;
+        background: rgba(25,25,25,0.8);
         border-radius: 12px;
-        margin-bottom: 1rem;
+        margin-bottom: 1.2rem;
         transition: all 0.3s ease;
-        border-left: 4px solid #3498db;
+        border-left: 3px solid #DAA520;
+        border: 1px solid rgba(218,165,32,0.1);
     }
-    
+
     .comment-item:hover {
-        background: #e9ecef;
-        transform: translateX(5px);
+        background: rgba(30,30,30,0.9);
+        transform: translateX(4px);
+        border-color: rgba(218,165,32,0.3);
     }
-    
+
     .comment-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 0.75rem;
+        margin-bottom: 0.8rem;
     }
-    
+
     .comment-author {
         font-weight: 700;
-        color: #2c3e50;
-        font-size: 0.95rem;
+        color: #FFD700;
+        font-size: 1rem;
     }
-    
+
     .btn-delete-comment {
         background: none;
         border: none;
-        color: #e74c3c;
-        padding: 0.25rem 0.5rem;
+        color: #ff6b6b;
+        padding: 0.3rem 0.6rem;
         border-radius: 6px;
         transition: all 0.3s ease;
+        font-size: 0.95rem;
     }
-    
+
     .btn-delete-comment:hover {
-        background: #fee;
-        transform: scale(1.1);
+        background: rgba(220,53,69,0.15);
+        color: #e74c3c;
+        transform: scale(1.15);
     }
-    
+
     .comment-text {
-        color: #2c3e50;
-        line-height: 1.6;
-        margin-bottom: 0.75rem;
+        color: #ddd;
+        line-height: 1.7;
+        margin-bottom: 0.8rem;
+        font-size: 1.02rem;
     }
-    
+
     .comment-date {
-        color: #7f8c8d;
-        font-size: 0.85rem;
+        color: #888;
+        font-size: 0.9rem;
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
     }
-    
+
     .empty-comments {
         text-align: center;
         padding: 3rem 1.5rem;
-        color: #7f8c8d;
+        color: #888;
     }
-    
+
     .empty-comments i {
-        font-size: 3rem;
-        margin-bottom: 1rem;
-        opacity: 0.5;
+        font-size: 3.5rem;
+        margin-bottom: 1.2rem;
+        color: rgba(218,165,32,0.3);
+        animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+        0%, 100% { opacity: 0.3; }
+        50% { opacity: 0.6; }
+    }
+
+    /* Scrollbar */
+    .comments-list::-webkit-scrollbar {
+        width: 8px;
+    }
+    .comments-list::-webkit-scrollbar-track {
+        background: #1a1a1a;
+    }
+    .comments-list::-webkit-scrollbar-thumb {
+        background: linear-gradient(to bottom, #DAA520, #B8860B);
+        border-radius: 4px;
     }
 </style>
 
@@ -365,10 +409,8 @@
         
         <!-- Info & Comments - Right Side -->
         <div class="col-lg-4">
-            
             <!-- Foto Info Card -->
             <div class="info-card">
-                <!-- User Info -->
                 <div class="user-info-section">
                     <div class="user-avatar">
                         {{ substr($foto->user->NamaLengkap, 0, 1) }}
@@ -379,7 +421,6 @@
                     </div>
                 </div>
                 
-                <!-- Foto Content -->
                 <div class="foto-content">
                     <h4 class="foto-title">{{ $foto->JudulFoto }}</h4>
                     
@@ -389,7 +430,6 @@
                     <p class="foto-description fst-italic">Tidak ada deskripsi</p>
                     @endif
                     
-                    <!-- Meta Info -->
                     <div class="meta-info">
                         <div class="meta-item">
                             <i class="bi bi-folder-fill"></i>
@@ -401,7 +441,6 @@
                         </div>
                     </div>
                     
-                    <!-- Like Button -->
                     <button id="likeButton" 
                             data-foto-id="{{ $foto->FotoID }}"
                             class="btn-like {{ $isLiked ? 'liked' : 'not-liked' }}">
@@ -422,7 +461,6 @@
                     </span>
                 </div>
                 
-                <!-- Form Komentar -->
                 <div class="comment-form">
                     <form id="komentarForm">
                         <textarea id="komentarInput" 
@@ -437,7 +475,6 @@
                     </form>
                 </div>
                 
-                <!-- List Komentar -->
                 <div class="comments-list" id="komentarList">
                     @forelse($foto->komentars as $komentar)
                     <div class="comment-item" data-komentar-id="{{ $komentar->KomentarID }}">
@@ -473,9 +510,9 @@
 <script>
 const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
 
-// LIKE FUNCTIONALITY
+// LIKE
 const likeButton = document.getElementById('likeButton');
-likeButton.addEventListener('click', async function() {
+likeButton?.addEventListener('click', async function() {
     try {
         const response = await fetch('/like/toggle', {
             method: 'POST',
@@ -487,33 +524,23 @@ likeButton.addEventListener('click', async function() {
         });
         
         const result = await response.json();
-        
         if (result.success) {
             const isLiked = result.data.isLiked;
-            
-            if (isLiked) {
-                likeButton.classList.remove('not-liked');
-                likeButton.classList.add('liked');
-                document.getElementById('likeText').textContent = 'Disukai';
-            } else {
-                likeButton.classList.remove('liked');
-                likeButton.classList.add('not-liked');
-                document.getElementById('likeText').textContent = 'Suka';
-            }
-            
+            likeButton.classList.toggle('not-liked', !isLiked);
+            likeButton.classList.toggle('liked', isLiked);
+            document.getElementById('likeText').textContent = isLiked ? 'Disukai' : 'Suka';
             document.getElementById('likeCount').textContent = result.data.likeCount;
         }
     } catch (error) {
         console.error('Error:', error);
-        alert('Terjadi kesalahan saat melakukan like');
+        alert('Gagal memberi like.');
     }
 });
 
-// KOMENTAR FUNCTIONALITY
+// KOMENTAR
 const komentarForm = document.getElementById('komentarForm');
-komentarForm.addEventListener('submit', async function(e) {
+komentarForm?.addEventListener('submit', async function(e) {
     e.preventDefault();
-    
     const isiKomentar = document.getElementById('komentarInput').value.trim();
     if (!isiKomentar) return;
     
@@ -531,7 +558,6 @@ komentarForm.addEventListener('submit', async function(e) {
         });
         
         const result = await response.json();
-        
         if (result.success) {
             const emptyState = document.getElementById('emptyKomentar');
             if (emptyState) emptyState.remove();
@@ -540,8 +566,7 @@ komentarForm.addEventListener('submit', async function(e) {
                 <div class="comment-item" data-komentar-id="${result.data.KomentarID}">
                     <div class="comment-header">
                         <span class="comment-author">${result.data.user.NamaLengkap}</span>
-                        <button onclick="deleteKomentar(${result.data.KomentarID})" 
-                                class="btn-delete-comment">
+                        <button onclick="deleteKomentar(${result.data.KomentarID})" class="btn-delete-comment">
                             <i class="bi bi-trash3"></i>
                         </button>
                     </div>
@@ -558,11 +583,11 @@ komentarForm.addEventListener('submit', async function(e) {
         }
     } catch (error) {
         console.error('Error:', error);
-        alert('Terjadi kesalahan saat mengirim komentar');
+        alert('Gagal mengirim komentar.');
     }
 });
 
-// DELETE KOMENTAR
+// HAPUS KOMENTAR
 async function deleteKomentar(komentarId) {
     if (!confirm('Hapus komentar ini?')) return;
     
@@ -571,17 +596,15 @@ async function deleteKomentar(komentarId) {
             method: 'DELETE',
             headers: { 'X-CSRF-TOKEN': csrfToken }
         });
-        
         const result = await response.json();
-        
         if (result.success) {
             document.querySelector(`[data-komentar-id="${komentarId}"]`).remove();
-            document.getElementById('komentarCount').textContent = parseInt(document.getElementById('komentarCount').textContent) - 1;
+            const countEl = document.getElementById('komentarCount');
+            countEl.textContent = Math.max(0, parseInt(countEl.textContent) - 1);
             
-            // Show empty state if no comments
-            const commentsList = document.getElementById('komentarList');
-            if (commentsList.children.length === 0) {
-                commentsList.innerHTML = `
+            const list = document.getElementById('komentarList');
+            if (list.children.length === 0) {
+                list.innerHTML = `
                     <div class="empty-comments" id="emptyKomentar">
                         <i class="bi bi-chat-square-text"></i>
                         <p>Belum ada komentar.<br>Jadilah yang pertama berkomentar!</p>
@@ -591,7 +614,7 @@ async function deleteKomentar(komentarId) {
         }
     } catch (error) {
         console.error('Error:', error);
-        alert('Terjadi kesalahan saat menghapus komentar');
+        alert('Gagal menghapus komentar.');
     }
 }
 </script>
