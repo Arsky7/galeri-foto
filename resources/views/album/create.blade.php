@@ -119,6 +119,7 @@
         display: inline-block;
         width: 60px;
         height: 30px;
+        margin-right: 12px;
     }
 
     .switch input {
@@ -135,11 +136,11 @@
         right: 0;
         bottom: 0;
         background-color: #666;
-        transition: .4s;
+        transition: 0.4s;
         border-radius: 34px;
     }
 
-    .slider:before {
+    .slider::before {
         position: absolute;
         content: "";
         height: 22px;
@@ -147,15 +148,17 @@
         left: 4px;
         bottom: 4px;
         background-color: white;
-        transition: .4s;
+        transition: 0.4s;
         border-radius: 50%;
     }
 
-    input:checked + .slider {
-        background: linear-gradient(135deg, #DAA520, #FFD700);
+    /* Saat PUBLIC (checked) */
+    .switch input:checked + .slider {
+        background-color: #198754; /* hijau Bootstrap success */
+        box-shadow: 0 0 8px rgba(25, 135, 84, 0.6);
     }
 
-    input:checked + .slider:before {
+    .switch input:checked + .slider::before {
         transform: translateX(30px);
     }
 
@@ -284,26 +287,40 @@
                             @enderror
                         </div>
 
-                        <!-- Privacy Toggle (SUDAH DIPERBAIKI) -->
+                        <!-- Privacy Toggle -->
                         <div class="form-group-custom">
                             <label class="form-label-custom">
                                 <i class="bi bi-shield-lock"></i> Privasi Album
                             </label>
+                            
                             <!-- Hidden input untuk nilai default "0" -->
                             <input type="hidden" name="is_public" value="0">
+
                             <div class="privacy-toggle">
                                 <label class="switch">
-                                    <input type="checkbox" name="is_public" value="1" {{ old('is_public') ? 'checked' : '' }}>
+                                    <input
+                                        type="checkbox"
+                                        name="is_public"
+                                        value="1"
+                                        id="privacy-toggle"
+                                        {{ old('is_public') ? 'checked' : '' }}
+                                    >
                                     <span class="slider"></span>
                                 </label>
+
                                 <div id="privacy-label-text">
-                                    @if(old('is_public'))
-                                        <strong class="text-success">Publik</strong> — bisa dilihat semua orang
-                                    @else
-                                        <strong class="text-warning">Privat</strong> — hanya Anda yang bisa melihat
-                                    @endif
+                                    <strong id="privacy-status">
+                                        {{ old('is_public') ? 'Publik' : 'Privat' }}
+                                    </strong>
+                                    <span id="privacy-desc">
+                                        {{ old('is_public')
+                                            ? ' — bisa dilihat semua orang'
+                                            : ' — hanya Anda yang bisa melihat'
+                                        }}
+                                    </span>
                                 </div>
                             </div>
+
                             <div class="privacy-help">
                                 <h6>
                                     <i class="bi bi-lightbulb text-warning"></i> Tentang Privasi
@@ -331,49 +348,47 @@
     </div>
 </div>
 
-@push('scripts')
+{{-- ✅ SCRIPT LANGSUNG DI SINI — PASTI JALAN --}}
 <script>
-// Character counters
-const namaAlbum = document.getElementById('namaAlbum');
-const charCount = document.getElementById('charCount');
-const deskripsi = document.getElementById('deskripsi');
-const descCharCount = document.getElementById('descCharCount');
-
-if (namaAlbum) {
-    namaAlbum.addEventListener('input', () => {
-        charCount.textContent = namaAlbum.value.length;
-    });
-    charCount.textContent = namaAlbum.value.length;
-}
-
-if (deskripsi) {
-    deskripsi.addEventListener('input', () => {
-        descCharCount.textContent = deskripsi.value.length;
-    });
-    descCharCount.textContent = deskripsi.value.length;
-}
-
-// Privacy toggle handler
-document.addEventListener('DOMContentLoaded', function () {
-    const toggle = document.querySelector('input[name="is_public"]');
-    const label = document.getElementById('privacy-label-text');
-    
-    if (!toggle || !label) return;
-
-    function updateLabel() {
-        if (toggle.checked) {
-            label.innerHTML = '<strong class="text-success">Publik</strong> — bisa dilihat semua orang';
-        } else {
-            label.innerHTML = '<strong class="text-warning">Privat</strong> — hanya Anda yang bisa melihat';
-        }
+(function () {
+    // Tunggu DOM siap
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initPrivacyToggle);
+    } else {
+        initPrivacyToggle();
     }
 
-    // Set initial state
-    updateLabel();
+    function initPrivacyToggle() {
+        const toggle = document.getElementById('privacy-toggle');
+        const statusEl = document.getElementById('privacy-status');
+        const descEl = document.getElementById('privacy-desc');
 
-    // Update on toggle change
-    toggle.addEventListener('change', updateLabel);
-});
+        // Jika salah satu elemen tidak ada, hentikan
+        if (!toggle || !statusEl || !descEl) {
+            console.warn('Elemen privasi tidak lengkap. Pastikan id benar.');
+            return;
+        }
+
+        function updateText() {
+            if (toggle.checked) {
+                statusEl.textContent = 'Publik';
+                statusEl.className = 'text-success';
+                descEl.textContent = ' — bisa dilihat semua orang';
+            } else {
+                statusEl.textContent = 'Privat';
+                statusEl.className = 'text-warning';
+                descEl.textContent = ' — hanya Anda yang bisa melihat';
+            }
+        }
+
+        // Setel awal sesuai status checkbox
+        updateText();
+
+        // Dengarkan perubahan
+        toggle.addEventListener('change', updateText);
+    }
+})();
 </script>
-@endpush
+
+{{-- ✅ Jika kamu ingin tetap pakai @push, pastikan layout app.blade.php punya @stack('scripts') --}}
 @endsection
